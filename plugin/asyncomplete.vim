@@ -4,7 +4,7 @@ endif
 let g:asyncomplete_loaded = 1
 
 let s:is_nvim = has('nvim')
-let s:has_lua = has('lua') || has('nvim-0.2.2')
+let s:has_lua = has('nvim-0.5.0') || (has('lua') && has('patch-8.2.0782')) " https://github.com/vim/vim/pull/6063
 
 if s:has_lua
     if !s:is_nvim
@@ -15,7 +15,7 @@ if s:has_lua
     lua asyncomplete = require('asyncomplete')
     lua asyncomplete.init()
 else
-    " TODO: fallback to v2 so it works when lua is not available
+    " TODO: fallback to vimscript so it works when lua is not available
 endif
 
 " if get(g:, 'asyncomplete_enable_for_all', 1)

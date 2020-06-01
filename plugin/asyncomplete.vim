@@ -4,14 +4,11 @@ endif
 let g:asyncomplete_loaded = 1
 
 let s:is_nvim = has('nvim')
-let s:has_lua = has('nvim-0.5.0') || (has('lua') && has('patch-8.2.0782')) " https://github.com/vim/vim/pull/6063
+" patch-8.2.0782: https://github.com/vim/vim/pull/6063
+" patch-8.2.0858: https://github.com/vim/vim/pull/6098
+let s:has_lua = has('nvim-0.5.0') || (has('lua') && has('patch-8.2.0782') && has('patch-8.2.0858'))
 
 if s:has_lua
-    if !s:is_nvim
-        " make vim behave like neovim
-        let s:plugin_dir = fnamemodify(expand('<sfile>:p:h') . '/../', ':p:h:gs?\\?/?')
-        lua package.path = vim.eval("s:plugin_dir") .. '/lua/?.lua;' .. vim.eval("s:plugin_dir") .. '/lua/?/init.lua;' .. package.path
-    endif
     lua asyncomplete = require('asyncomplete')
     lua asyncomplete.init()
 else
